@@ -9,14 +9,6 @@
 #include <stdio.h>
 #include "tokens.h"
 
-struct _MainArguments {
-    char *filePath;
-    int printSrcOption;
-    int printCleanSrcOption;
-};
-typedef struct _MainArguments MainArguments;
-
-MainArguments* parseArguments(int argc, char **argv);
 char *readFile(FILE *f);
 void printToken(Token *link);
 void printTokenList(Token *tail);

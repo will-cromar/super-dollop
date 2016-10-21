@@ -4,9 +4,9 @@
 // Jonathan Guilbe
 
 #include <string.h>
-#include "symbol-detection.h"
+#include "symbol_detection.h"
 #include <ctype.h>
-#include "input-output.h"
+#include "input_output.h"
 #include <stdlib.h>
 
 #define NUMBER_BASE 10

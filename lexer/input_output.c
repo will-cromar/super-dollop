@@ -3,26 +3,10 @@
 // Luke Myers
 // Jonathan Guilbe
 
-#include "input-output.h"
-#include "symbol-detection.h"
+#include "input_output.h"
+#include "symbol_detection.h"
 #include <string.h>
 #include <stdlib.h>
-
-
-MainArguments* parseArguments(int argc, char **argv){
-    // Pull out the command line arguments
-    MainArguments* arguments = calloc(1, sizeof(MainArguments));
-    for (int i = 1; i < argc; i++) {
-        if (strncmp(argv[i], "--", 2) != 0 && arguments->filePath == NULL) {
-            arguments->filePath = argv[i];
-        }
-        else if (strcmp(argv[i], "--source") == 0)
-            arguments->printSrcOption = 1;
-        else if (strcmp(argv[i], "--clean") == 0)
-            arguments->printCleanSrcOption = 1;
-    }
-    return arguments;
-}
 
 char *readFile(FILE *f) {
     fseek(f, 0L, SEEK_END);
@@ -101,20 +85,4 @@ void printError(TokenType type) {
         default:
             return;
     }
-}
-
-void printNumIdentError(){
-    printf("Identifier starts with a number\n");
-}
-
-void printNumTooLargeError(){
-    printf("Number too large\n");
-}
-
-void printIdentTooLongError(){
-    printf("Identifier too long\n");
-}
-
-void printInvalidTokenError(){
-    printf("Invalid token\n");
 }

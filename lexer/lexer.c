@@ -7,62 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "input-output.h"
-#include "symbol-detection.h"
-
-int main(int argc, char **argv) {
-
-    // Parse command line arguments
-    MainArguments *arguments = parseArguments(argc, argv);
-
-    // Check to see if a file path wasn't passed via command line
-    if(isEmptyPathError(arguments->filePath)){
-        printEmptyPathError();
-        exit(-1);
-    }
-
-    // Open the file
-    FILE *f = fopen(arguments->filePath, "r");
-
-    // Check for errors in opening the file
-    if(isBadFilePointerError(f)){
-        printBadFilePointerError();
-        exit(-1);
-    }
-
-    // Read in the file's contents
-    char *sourceCode = readFile(f);
-    fclose(f);
-
-    // Print the original contents
-    if(arguments->printSrcOption)
-        printSourceCode(sourceCode);
-
-    // Preprocess sourceCode to remove comments
-    char *cleanSourceCode = purgeComments(sourceCode);
-
-    // Print the commentless sourceCode
-    if(arguments->printCleanSrcOption)
-        printCleanSourceCode(cleanSourceCode);
-
-    // Break the uncommented source code into tokens
-    Token *tail = tokenize(cleanSourceCode);
-
-    // Print the tokens according to output spec
-    printTokenList(tail);
-
-    Token *temp = NULL;
-    // Free the token chain
-    while (tail != NULL) {
-        temp = tail;
-        tail = tail->next;
-        free(temp);
-    }
-    free(sourceCode);
-    free(cleanSourceCode);
-
-    return 0;
-}
+#include "input_output.h"
+#include "symbol_detection.h"
 
 char *purgeComments(const char const *orig) {
     size_t k = (strlen(orig) + 1);
