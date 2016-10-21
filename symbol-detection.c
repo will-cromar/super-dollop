@@ -176,7 +176,7 @@ int isElsesym(char* ptr){
     return match(ELSESYM, ptr);
 }
 
-TokenIndex getType(char* ptr){
+TokenType getType(char* ptr){
     if(isNullsym(ptr))
         return nulsym;
     else if(isPlussym(ptr))
@@ -241,35 +241,29 @@ TokenIndex getType(char* ptr){
         return elsesym;
     else if(isalpha((int) *ptr)) {
         if(isIdentTooLong(ptr)) {
-            printIdentTooLongError();
-            return -1;
+            return identTooLong;
         }
         if(isInvalidToken(ptr)) {
-            printInvalidTokenError();
-            return -1;
+            return invalidToken;
         }
         return identsym;
     }
     else if(isdigit((int) *(ptr))){
         if(isInvalidToken(ptr)) {
-            printInvalidTokenError();
-            return -1;
+            return invalidToken;
         }
         if(numIdentifierError(ptr)){
-            printNumIdentError();
-            return -1;
+            return numIdent;
         }
         else {
             if(isNumTooLarge(ptr)) {
-                printNumTooLargeError();
-                return -1;
+                return numTooLarge;
             }
         }
         return numbersym;
     }
     else {
-        printInvalidTokenError();
-        return -1;
+        return invalidToken;
     }
 }
 

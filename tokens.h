@@ -8,7 +8,11 @@
 
 #define BUFFERSIZE 100
 
-enum _TokenIndex {
+enum _TokenType {
+    // Invalid types
+    numIdent = -4, numTooLarge = -3, identTooLong = -2, invalidToken = -1,
+
+    // Valid types
     nulsym = 1, identsym, numbersym, plussym, minussym,
     multsym, slashsym, oddsym, eqsym, neqsym, lessym, leqsym,
     gtrsym, geqsym, lparentsym, rparentsym, commasym, semicolonsym,
@@ -16,10 +20,11 @@ enum _TokenIndex {
     whilesym, dosym, callsym, constsym, varsym, procsym, writesym,
     readsym , elsesym
 };
-typedef enum _TokenIndex TokenIndex;
+typedef enum _TokenType TokenType;
 
 struct _Token {
     char token[BUFFERSIZE];
+    TokenType type;
     struct _Token *next;
 };
 typedef struct _Token Token;

@@ -36,9 +36,13 @@ char *readFile(FILE *f) {
 }
 
 void printToken(Token *link) {
-    int type = getType(link->token);
-    if (strcmp(link->token, "") != 0 && type != -1) {
-        printf("%-12s %d\n", link->token, type);
+    // Skip erroneous and null tokens
+    if (link->type > 1) {
+        printf("%-12s %d\n", link->token, link->type);
+    }
+    // Print error messages
+    else if (link->type < 0){
+        printError(link->type);
     }
 }
 
@@ -73,6 +77,30 @@ void printCleanSourceCode(char *sourceCode){
     puts("source code without comments:");
     puts("-----------------------------");
     puts(sourceCode);
+}
+
+void printError(TokenType type) {
+    printf("Lexer error: ");
+    switch (type) {
+        case numIdent:
+            puts("Identifier starts with a number");
+            break;
+
+        case numTooLarge:
+            puts("Number too large");
+            break;
+
+        case identTooLong:
+            puts("Identifier too long");
+            break;
+
+        case invalidToken:
+            puts("Invalid token");
+            break;
+
+        default:
+            return;
+    }
 }
 
 void printNumIdentError(){

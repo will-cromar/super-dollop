@@ -39,7 +39,7 @@ int isProcsym(char* ptr);
 int isWritesym(char* ptr);
 int isReadsym(char* ptr);
 int isElsesym(char* ptr);
-TokenIndex getType(char* ptr);
+TokenType getType(char* ptr);
 int numIdentifierError(char* ptr);
 int isNumTooLarge(char* ptr);
 int isIdentTooLong(char* ptr);

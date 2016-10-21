@@ -8,6 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "input-output.h"
+#include "symbol-detection.h"
 
 int main(int argc, char **argv) {
 
@@ -143,9 +144,13 @@ Token *tokenize(const char const *code) {
         }
 
         //puts(head->token);
+        TokenType type = getType(head->token);
+        head->type = type;
+
         head = addLink(head);
     }
 
+    head->type = nulsym;
     return tail;
 }
 
