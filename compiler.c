@@ -6,6 +6,7 @@
 
 #include "lexer/lexer.h"
 #include "lexer/input_output.h"
+#include "parser/parse.h"
 #include "compiler.h"
 
 int main(int argc, char **argv) {
@@ -48,6 +49,8 @@ int main(int argc, char **argv) {
 
     // Print the tokens according to output spec
     printTokenList(tail);
+
+    parseTokenChain(tail);
 
     Token *temp = NULL;
     // Free the token chain

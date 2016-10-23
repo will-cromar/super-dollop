@@ -19,7 +19,7 @@ const char *MULTSYM = "*";
 const char *SLASHSYM = "/";
 const char *ODDSYM = "odd";
 const char *EQLSYM = "=";
-const char *NEQSYM = "!=";
+const char *NEQSYM = "<>";
 const char *LESSSYM = "<";
 const char *LEQSYM = "<=";
 const char *GTRSYM = ">";
