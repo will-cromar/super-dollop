@@ -1,0 +1,5 @@
+/* Test case 4 has too long of an identifier */
+begin
+    var howlongamiallowedtomakethis;
+    howlongamiallowedtomakethis := 54321;
+end.
