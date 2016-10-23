@@ -4,10 +4,11 @@
 // Jonathan Guilbe
 
 #include <string.h>
-#include "symbol_detection.h"
 #include <ctype.h>
-#include "input_output.h"
 #include <stdlib.h>
+
+#include "input_output.h"
+#include "symbol_detection.h"
 
 #define NUMBER_BASE 10
 #define MAX_PL0_NUM 65535
