@@ -5,11 +5,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "parse.h"
 #include "errordefs.h"
+#include "../virtual_machine/vm.h"
 
-#define DEBUG_VERBOSE_ADVANCE 1
+instruction code[CODE_SIZE];
+int cx;
+
 
 Token *iterator(Token *feed) {
     static Token *cur = NULL;
@@ -198,6 +200,9 @@ void parseExpression() {
     while (token->type == plussym || token->type == minussym) {
         parseTerm();
         token = advance();
+        if(token->type == plussym){
+            emit(2, 0, 2);
+        }
     }
 
     startIter(token);
@@ -252,4 +257,16 @@ int isRelationOperation(Token *token) {
 void reportParserError(const char const *error) {
     printf("Parser error: %s\n", error);
     exit(-1);
+}
+
+void emit(int op, int l, int m){
+    if(cx > CODE_SIZE){
+        reportParserError(25);
+    }
+    else{
+        code[cx].op = op;
+        code[cx].l = l;
+        code[cx].m = m;
+        cx++;
+    }
 }
