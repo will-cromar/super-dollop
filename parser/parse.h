@@ -7,6 +7,9 @@
 
 #include "../lexer/tokens.h"
 
+#define CODE_SIZE 502
+#define DEBUG_VERBOSE_ADVANCE 1
+
 Token *iterator(Token *feed);
 void startIter(Token *feed);
 Token *advance();
