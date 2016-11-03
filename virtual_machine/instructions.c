@@ -11,66 +11,66 @@
 
 //#define HCF exit(0)
 
-void LIT(vmInstance *vm, int M) {
+void lit(vmInstance *vm, int M) {
     push(vm, M);
 }
 
-void OPR(vmInstance *vm, int M) {
+void opr(vmInstance *vm, int M) {
     switch(M) {
         case 0:
-            RET(vm);
+            ret(vm);
             break;
 
         case 1:
-            NEG(vm);
+            neg(vm);
             break;
 
         case 2:
-            ADD(vm);
+            add(vm);
             break;
 
         case 3:
-            SUB(vm);
+            sub(vm);
             break;
 
         case 4:
-            MUL(vm);
+            mul(vm);
             break;
 
         case 5:
-            DIV(vm);
+            divOp(vm);
             break;
 
         case 6:
-            ODD(vm);
+            odd(vm);
             break;
 
         case 7:
-            MOD(vm);
+            mod(vm);
             break;
 
         case 8:
-            EQL(vm);
+            eql(vm);
             break;
 
         case 9:
-            NEQ(vm);
+            neq(vm);
             break;
 
         case 10:
-            LSS(vm);
+            lss(vm);
             break;
 
         case 11:
-            LEQ(vm);
+            leq(vm);
             break;
 
         case 12:
-            GTR(vm);
+            gtr(vm);
             break;
 
         case 13:
-            GEQ(vm);
+            geq(vm);
             break;
 
         default:
@@ -79,17 +79,17 @@ void OPR(vmInstance *vm, int M) {
     }
 }
 
-void LOD(vmInstance *vm, int L, int M) {
+void lod(vmInstance *vm, int L, int M) {
     int val = vm->stack[base(L, vm->bp, vm) + M];
     push(vm, val);
 }
 
-void STO(vmInstance *vm, int L, int M) {
+void sto(vmInstance *vm, int L, int M) {
     int val = pop(vm);
     vm->stack[ base(L, vm->bp, vm) + M ] = val;
 }
 
-void CAL(vmInstance *vm, int L, int M) {
+void cal(vmInstance *vm, int L, int M) {
     vm->stack[vm->sp + 1] = 0;
     vm->stack[vm->sp + 2] = base(L, vm->bp, vm);
     vm->stack[vm->sp + 3] = vm->bp;
@@ -105,21 +105,21 @@ void CAL(vmInstance *vm, int L, int M) {
     vm->arList->next = NULL;
 }
 
-void INC(vmInstance *vm, int M) {
+void inc(vmInstance *vm, int M) {
     vm->sp += M;
 }
 
-void JMP(vmInstance *vm, int M) {
+void jmp(vmInstance *vm, int M) {
     vm->pc = M;
 }
 
-void JPC(vmInstance *vm, int M) {
+void jpc(vmInstance *vm, int M) {
     int val = pop(vm);
 
-    if (val == 0) JMP(vm, M);
+    if (val == 0) jmp(vm, M);
 }
 
-void RET(vmInstance *vm) {
+void ret(vmInstance *vm) {
     vm->sp = vm->bp - 1;
     vm->pc = vm->stack[vm->sp + 4];
     vm->bp = vm->stack[vm->sp + 3];
@@ -135,11 +135,11 @@ void RET(vmInstance *vm) {
     vm->arList->next = NULL;
 }
 
-void NEG(vmInstance *vm) {
+void neg(vmInstance *vm) {
     vm->stack[vm->sp] *= -1;
 }
 
-void ADD(vmInstance *vm) {
+void add(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 + op2;
@@ -147,7 +147,7 @@ void ADD(vmInstance *vm) {
     push(vm, res);
 }
 
-void SUB(vmInstance *vm) {
+void sub(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 - op2;
@@ -155,7 +155,7 @@ void SUB(vmInstance *vm) {
     push(vm, res);
 }
 
-void MUL(vmInstance *vm) {
+void mul(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 * op2;
@@ -163,7 +163,7 @@ void MUL(vmInstance *vm) {
     push(vm, res);
 }
 
-void DIV(vmInstance *vm) {
+void divOp(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 / op2;
@@ -171,14 +171,14 @@ void DIV(vmInstance *vm) {
     push(vm, res);
 }
 
-void ODD(vmInstance *vm) {
+void odd(vmInstance *vm) {
     int op1 = pop(vm);
     int res = op1 % 2;
 
     push(vm, res);
 }
 
-void MOD(vmInstance *vm) {
+void mod(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 % op2;
@@ -186,7 +186,7 @@ void MOD(vmInstance *vm) {
     push(vm, res);
 }
 
-void EQL(vmInstance *vm) {
+void eql(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 == op2;
@@ -194,7 +194,7 @@ void EQL(vmInstance *vm) {
     push(vm, res);
 }
 
-void NEQ(vmInstance *vm) {
+void neq(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 != op2;
@@ -202,7 +202,7 @@ void NEQ(vmInstance *vm) {
     push(vm, res);
 }
 
-void LSS(vmInstance *vm) {
+void lss(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 < op2;
@@ -210,7 +210,7 @@ void LSS(vmInstance *vm) {
     push(vm, res);
 }
 
-void LEQ(vmInstance *vm) {
+void leq(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 <= op2;
@@ -218,7 +218,7 @@ void LEQ(vmInstance *vm) {
     push(vm, res);
 }
 
-void GTR(vmInstance *vm) {
+void gtr(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 > op2;
@@ -226,7 +226,7 @@ void GTR(vmInstance *vm) {
     push(vm, res);
 }
 
-void GEQ(vmInstance *vm) {
+void geq(vmInstance *vm) {
     int op2 = pop(vm);
     int op1 = pop(vm);
     int res = op1 >= op2;
@@ -234,18 +234,18 @@ void GEQ(vmInstance *vm) {
     push(vm, res);
 }
 
-int SIO(vmInstance *vm, int M) {
+int sio(vmInstance *vm, int M) {
     switch (M) {
         case 0:
-            OUT(vm);
+            out(vm);
             return 0;
 
         case 1:
-            INP(vm);
+            inp(vm);
             return 0;
 
         case 2:
-            HLT();
+            hlt();
             return 1;
 
         default:
@@ -254,17 +254,17 @@ int SIO(vmInstance *vm, int M) {
     }
 }
 
-void OUT(vmInstance *vm) {
+void out(vmInstance *vm) {
     int val = pop(vm);
     printf("%d\n", val);
 }
 
-void INP(vmInstance *vm) {
+void inp(vmInstance *vm) {
     int temp;
     scanf("%d", &temp);
     push(vm, temp);
 }
 
-void HLT(void) {
+void hlt(void) {
     return;
 }

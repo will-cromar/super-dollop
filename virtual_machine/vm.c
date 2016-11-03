@@ -89,39 +89,39 @@ int execute(vmInstance *vm) {
 
     switch (instr->op) {
         case 1:
-            LIT(vm, instr->m);
+            lit(vm, instr->m);
             return 0;
 
         case 2:
-            OPR(vm, instr->m);
+            opr(vm, instr->m);
             return 0;
 
         case 3:
-            LOD(vm, instr->l, instr->m);
+            lod(vm, instr->l, instr->m);
             return 0;
 
         case 4:
-            STO(vm, instr->l, instr->m);
+            sto(vm, instr->l, instr->m);
             return 0;
 
         case 5:
-            CAL(vm, instr->l, instr->m);
+            cal(vm, instr->l, instr->m);
             return 0;
 
         case 6:
-            INC(vm, instr->m);
+            inc(vm, instr->m);
             return 0;
 
         case 7:
-            JMP(vm, instr->m);
+            jmp(vm, instr->m);
             return 0;
 
         case 8:
-            JPC(vm, instr->m);
+            jpc(vm, instr->m);
             return 0;
 
         case 9:
-            return SIO(vm, instr->m);
+            return sio(vm, instr->m);
 
 
 
