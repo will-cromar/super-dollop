@@ -1,8 +1,8 @@
 struct _MainArguments {
-    char *filePath;
-    int printSrcOption;
-    int printCleanSrcOption;
+    char *inputPath;
+    char *outputPath;
+
 };
 typedef struct _MainArguments MainArguments;
 
-MainArguments* parseArguments(int argc, char **argv);
+MainArguments* parseArguments(char **argv);
