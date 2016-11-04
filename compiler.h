@@ -5,4 +5,4 @@ struct _MainArguments {
 };
 typedef struct _MainArguments MainArguments;
 
-MainArguments* parseArguments(char **argv);
+MainArguments* parseArguments(int argc, char **argv);
