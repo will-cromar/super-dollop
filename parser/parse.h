@@ -25,5 +25,6 @@ void parseFactor();
 int isRelationOperation(Token *token);
 
 void reportParserError(const char const *error);
+void emit(int op, int l, int m);
 
 #endif //SUPER_DOLLOP_PARSE_H
