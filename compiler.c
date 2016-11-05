@@ -15,40 +15,31 @@ int main(int argc, char **argv) {
     MainArguments *arguments = parseArguments(argc, argv);
 
     // Check to see if a file path wasn't passed via command line
-    if(isEmptyPathError(arguments->filePath)){
+    // Probably shouldn't be needed anymore
+    if(isEmptyPathError(arguments->inputPath) || isEmptyPathError(arguments->outputPath)){
         printEmptyPathError();
         exit(-1);
     }
 
     // Open the file
-    FILE *f = fopen(arguments->filePath, "r");
+    FILE *input = fopen(arguments->inputPath, "r");
+    FILE *output = fopen(arguments->outputPath, "w");
 
     // Check for errors in opening the file
-    if(isBadFilePointerError(f)){
+    if(isBadFilePointerError(input) || isBadFilePointerError(output)){
         printBadFilePointerError();
         exit(-1);
     }
 
     // Read in the file's contents
-    char *sourceCode = readFile(f);
-    fclose(f);
-
-    // Print the original contents
-    if(arguments->printSrcOption)
-        printSourceCode(sourceCode);
+    char *sourceCode = readFile(input);
+    fclose(input);
 
     // Preprocess sourceCode to remove comments
     char *cleanSourceCode = purgeComments(sourceCode);
 
-    // Print the commentless sourceCode
-    if(arguments->printCleanSrcOption)
-        printCleanSourceCode(cleanSourceCode);
-
     // Break the uncommented source code into tokens
     Token *tail = tokenize(cleanSourceCode);
-
-    // Print the tokens according to output spec
-    printTokenList(tail);
 
     parseTokenChain(tail);
 
@@ -69,14 +60,14 @@ int main(int argc, char **argv) {
 MainArguments* parseArguments(int argc, char **argv){
     // Pull out the command line arguments
     MainArguments* arguments = calloc(1, sizeof(MainArguments));
-    for (int i = 1; i < argc; i++) {
-        if (strncmp(argv[i], "--", 2) != 0 && arguments->filePath == NULL) {
-            arguments->filePath = argv[i];
-        }
-        else if (strcmp(argv[i], "--source") == 0)
-            arguments->printSrcOption = 1;
-        else if (strcmp(argv[i], "--clean") == 0)
-            arguments->printCleanSrcOption = 1;
+    if(argc != 2) {
+        printf("Error: Input Mismatch");
+        exit(-1);
     }
+    if (strncmp(argv[0], "--", 2) == 1 && strncmp(argv[1], "--", 2) == 1 ) {
+        arguments->inputPath = argv[0];}
+    else{
+        printf("Error: Input Mismatch");
+        exit(-1);}
     return arguments;
 }

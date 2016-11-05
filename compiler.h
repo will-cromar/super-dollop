@@ -1,7 +1,7 @@
 struct _MainArguments {
-    char *filePath;
-    int printSrcOption;
-    int printCleanSrcOption;
+    char *inputPath;
+    char *outputPath;
+
 };
 typedef struct _MainArguments MainArguments;
 
