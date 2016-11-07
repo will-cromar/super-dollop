@@ -15,7 +15,6 @@ int main(int argc, char **argv) {
     MainArguments *arguments = parseArguments(argc, argv);
 
     // Check to see if a file path wasn't passed via command line
-    // Probably shouldn't be needed anymore
     if(isEmptyPathError(arguments->inputPath) || isEmptyPathError(arguments->outputPath)){
         printEmptyPathError();
         exit(-1);
@@ -60,14 +59,11 @@ int main(int argc, char **argv) {
 MainArguments* parseArguments(int argc, char **argv){
     // Pull out the command line arguments
     MainArguments* arguments = calloc(1, sizeof(MainArguments));
-    if(argc != 2) {
-        printf("Error: Input Mismatch");
+    if(argc != 3) {
+        printf("Error: Input Mismatch\n");
         exit(-1);
     }
-    if (strncmp(argv[0], "--", 2) == 1 && strncmp(argv[1], "--", 2) == 1 ) {
-        arguments->inputPath = argv[0];}
-    else{
-        printf("Error: Input Mismatch");
-        exit(-1);}
+    arguments->inputPath = argv[1];
+    arguments->outputPath = argv[2];
     return arguments;
 }
