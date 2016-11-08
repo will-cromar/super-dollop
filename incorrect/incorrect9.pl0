@@ -1,0 +1,6 @@
+/* Test case 3 should trigger isNumTooLarge */
+begin
+    var x;
+    x := 987654321234567;
+    x := x / 2 * 3 - 4 + 5;
+end.

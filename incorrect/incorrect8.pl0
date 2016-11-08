@@ -1,0 +1,7 @@
+/* Test case 2 should result in numIdentifierError triggering */
+var x;
+begin
+    var 2y;
+    2y := 1;
+    x := 1 + 2y;
+end.

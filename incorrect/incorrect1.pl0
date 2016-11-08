@@ -1,0 +1,6 @@
+const a = ;
+var x, y;
+begin
+	y = 12;
+	x := y + 56;
+end.

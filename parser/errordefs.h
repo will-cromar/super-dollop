@@ -16,7 +16,7 @@
 //#define MISSING_PROC_IDENT "Procedure must begin with identifier"
 #define MISSING_PROC_DECL_SEMICOLON "Procedure decalaration must end with a semicolon (?)"
 #define MISSING_PROC_END_SEMICOLON "Procedure block must be terminated with a semicolon"
-#define MISSING_IDENT_BECOMES "Identifier must be followed by 'becomes'"
+#define MISSING_IDENT_BECOMES "Identifier must be followed by ':='"
 #define MISSING_CALL_IDENT "'Call' keyword must be followed by identifier"
 #define MISSING_BEGIN_END "Statement in 'begin' block must be followed by ';' or 'end'"
 #define MISSING_THEN "'if' condition must be followed by then"
