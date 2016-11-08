@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include "parse.h"
 #include "errordefs.h"
-#include "../virtual_machine/vm.h"
 #include "../virtual_machine/opcodes.h"
 #include "../parser/symbols.h"
 #include <string.h>
@@ -53,6 +52,7 @@ void parseTokenChain(Token *tail) {
     startIter(tail);
 
     parseProgram();
+    emit(SIO, 0, 2); //halt instruction to end program
 }
 
 void parseProgram() {
@@ -232,10 +232,7 @@ void parseCondition() {
 
     if (token->type == oddsym) {
         parseExpression();
-        emit(LIT, 0, 2);
-        emit(OPR, 0, MOD);
-        emit(LIT, 0, 1);
-        emit(OPR, 0, EQL);
+        emit(OPR, 0, ODD);
     }
     else {
         startIter(token);
@@ -386,4 +383,11 @@ void emit(int op, int l, int m){
         code[cx].m = m;
         cx++;
     }
+}
+
+instructMem getCode(){
+    instructMem machineCode;
+    machineCode.mem = code;
+    machineCode.length = cx - 1;
+    return machineCode;
 }
