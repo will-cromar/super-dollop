@@ -284,6 +284,7 @@ void parseExpression() {
         }
     }
     else{
+        startIter(token);
         parseTerm();
     }
 
