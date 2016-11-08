@@ -2,5 +2,4 @@ var x, y;
 begin
 	y := 12;
 	x := y + 56
-	const z = 22;
 end.

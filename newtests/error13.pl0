@@ -1,4 +1,4 @@
 var x, y;
 begin
-	const z x + 22;
+	 y x + 22;
 end.
