@@ -277,7 +277,7 @@ void parseExpression() {
     token = advance();
     if(token->type == minussym || token->type == plussym){
         tempTok = token;
-        token = advance();
+        //token = advance();
         parseTerm();
         if(tempTok->type == minussym){
             emit(OPR, 0, NEG);
