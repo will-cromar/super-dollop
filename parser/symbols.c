@@ -4,32 +4,23 @@
 #include <string.h>
 #include "symbols.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 symbol* symbol_table[MAX_SYMBOL_TABLE_SIZE] = {NULL};
 
-int contains(char name[]){
+symbol* get(char name[]){
     int hashIndex = hash(name);
     int origin = hashIndex;
     while(symbol_table[hashIndex] != NULL){
-        if(strcmp(symbol_table[hashIndex]->name,name) == 0){
-            return 1;
-        }
-        hashIndex++;
-        hashIndex %= MAX_SYMBOL_TABLE_SIZE;
-        if(hashIndex == origin)
-            return 0;
-    }
-    return 0;
-}
-
-symbol* get(char name[]){
-    int hashIndex = hash(name);
-    while(1){
         if(strcmp(symbol_table[hashIndex]->name,name) == 0){
             return symbol_table[hashIndex];
         }
         hashIndex++;
         hashIndex %= MAX_SYMBOL_TABLE_SIZE;
+        if(hashIndex == origin){
+            printf("Parsing Error: Symbol does not exist.");
+            exit(-1);
+        }
     }
 }
 
@@ -42,8 +33,8 @@ void insert(char name[], symbol* newSymbol){
         hashIndex %= MAX_SYMBOL_TABLE_SIZE;
         //Table is full, how do we handle this?
         if(hashIndex == origin) {
-            printf("Error: Symbol table is full.\n");
-            return;
+            printf("Parsing Error: Symbol table is full.\n");
+            exit(-1);
         }
     }
     symbol_table[hashIndex] = newSymbol;
