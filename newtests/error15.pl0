@@ -1,5 +1,5 @@
 var x, y;
 begin
-	x = 2;
+	x := 2;
 	call x;	
 end.
