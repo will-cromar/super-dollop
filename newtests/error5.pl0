@@ -1,4 +1,4 @@
-var x, y;
+var x y;
 begin
 	y := 12;
 	x := y + 56

@@ -84,7 +84,7 @@ void parseBlock() {
         do {
             token = advance();
             if (token->type != identsym)
-                reportParserError(MISSING_CONST_IDENT);
+                reportParserError(MISSING_IDENTIFIER);
             varName = token->token;
 
             token = advance();
@@ -116,7 +116,7 @@ void parseBlock() {
         do {
             token = advance();
             if (token->type != identsym)
-                reportParserError(MISSING_IDENTIFIER_NAME);
+                reportParserError(MISSING_IDENTIFIER);
 
             emit(LIT, 0, 0);
             curStackPointer++;
@@ -140,7 +140,7 @@ void parseBlock() {
     while (token->type == procsym) {
         token = advance();
         if (token->type != identsym)
-            reportParserError(MISSING_PROC_IDENT);
+            reportParserError(MISSING_IDENTIFIER);
 
         token = advance();
         if (token->type != semicolonsym)
@@ -154,6 +154,9 @@ void parseBlock() {
 
         token = advance();
     }
+
+    if (token->type == periodsym)
+        reportParserError(MISSING_STATEMENT);
 
     // Pull iterator back a step for the statement parser
     startIter(token);
