@@ -9,16 +9,12 @@
 #include "vm.h"
 #include "instructions.h"
 #include "input_output.h"
+#include "../parser/parse.h"
 
 int execute(vmInstance *vm);
 
-/*int main(int argc, char **argv) {
-    if (argc < 2) {
-        puts("Error: at least one argument required. (The name of the file you wish to exectute.)");
-        return 1;
-    }
-    FILE *fp = fopen(argv[1], "r");
-    instructMem code = parseInput(fp);
+int run() {
+    instructMem code = getCode();
     printCode(code);
 
 
@@ -55,7 +51,7 @@ int execute(vmInstance *vm);
     }
 
     return 0;
-}*/
+}
 
 instructMem parseInput(FILE *fp){
     if(fp == NULL){
