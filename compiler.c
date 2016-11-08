@@ -42,6 +42,8 @@ int main(int argc, char **argv) {
 
     parseTokenChain(tail);
 
+    run();
+
     Token *temp = NULL;
     // Free the token chain
     while (tail != NULL) {
