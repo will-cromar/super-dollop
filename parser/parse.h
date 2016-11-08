@@ -6,6 +6,7 @@
 #define SUPER_DOLLOP_PARSE_H
 
 #include "../lexer/tokens.h"
+#include "../virtual_machine/vm.h"
 
 #define CODE_SIZE 502
 #define DEBUG_VERBOSE_ADVANCE 1
@@ -26,5 +27,6 @@ int isRelationOperation(Token *token);
 
 void reportParserError(const char const *error);
 void emit(int op, int l, int m);
+instructMem getCode();
 
 #endif //SUPER_DOLLOP_PARSE_H
