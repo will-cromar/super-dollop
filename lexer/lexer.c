@@ -91,7 +91,11 @@ Token *tokenize(const char const *code) {
 
         //puts(head->token);
         TokenType type = getType(head->token);
-        head->type = type;
+        if (type < 0) {
+            reportLexerError(type);
+        } else {
+            head->type = type;
+        }
 
         head = addLink(head);
     }

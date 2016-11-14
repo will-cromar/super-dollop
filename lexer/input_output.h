@@ -16,6 +16,6 @@ void printEmptyPathError();
 void printBadFilePointerError();
 void printSourceCode(char *sourceCode);
 void printCleanSourceCode(char *sourceCode);
-void printError(TokenType type);
+void reportLexerError(TokenType type);
 
 #endif //LEXER_INPUT_OUTPUT_H

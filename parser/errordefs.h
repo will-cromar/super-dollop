@@ -10,7 +10,7 @@
 #define MISSING_CONST_EQL "Constant declaration requires '=' assignment operator"
 #define MISSING_CONST_NUMBER "'=' must be followed by a number"
 #define MISSING_CONST_SEMICOLON "Constant declarations must be terminated by semicolon"
-#define MISSING_IDENTIFIER "'const', 'var', 'procedure' must be followed by an identifier"
+#define MISSING_IDENTIFIER "'const', 'var', 'procedure', 'read', and 'write' must be followed by an identifier"
 //#define MISSING_IDENTIFIER_NAME "'var' declaration requires valid identifier"
 #define MISSING_VAR_SEMICOLON "Identifiers in 'var' declaration must be followed by a ',' or ';'"
 //#define MISSING_PROC_IDENT "Procedure must begin with identifier"

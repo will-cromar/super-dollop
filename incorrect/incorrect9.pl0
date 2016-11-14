@@ -1,6 +1,6 @@
 /* Test case 3 should trigger isNumTooLarge */
+var x;
 begin
-    var x;
     x := 987654321234567;
     x := x / 2 * 3 - 4 + 5;
 end.

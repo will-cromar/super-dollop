@@ -26,7 +26,7 @@ void printToken(Token *link) {
     }
     // Print error messages
     else if (link->type < 0){
-        printError(link->type);
+        reportLexerError(link->type);
     }
 }
 
@@ -63,7 +63,7 @@ void printCleanSourceCode(char *sourceCode){
     puts(sourceCode);
 }
 
-void printError(TokenType type) {
+void reportLexerError(TokenType type) {
     printf("Lexer error: ");
     switch (type) {
         case numIdent:
@@ -85,4 +85,6 @@ void printError(TokenType type) {
         default:
             return;
     }
+
+    exit(-2);
 }
