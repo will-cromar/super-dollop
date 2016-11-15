@@ -43,7 +43,7 @@ void printInstruction(instruction code, FILE *f) {
     fprintf(f, "%3d  %s %s %s  ", code.inputNumber, getOpName(code), l_str, m_str);
 }
 
-void printFileInstruction(instruction code, FILE* output) {
+void printFileInstruction(instruction code, int i, FILE *output) {
     char l_str[5];
     formatLString(&code, l_str);
 
@@ -71,8 +71,8 @@ void formatLString(instruction *instr, char *buffer) {
 
 void printCode(instructMem memory){
     FILE* output = getOutputFile();
-    for(int a = 1; a <= memory.length; a++){
-        printFileInstruction(memory.mem[a], output);
+    for(int a = 0; a <= memory.length; a++) {
+        printFileInstruction(memory.mem[a], a + 1, output);
         fprintf(output, "\n");
     }
 }

@@ -8,7 +8,7 @@
 
 const char *getOpName(instruction code);
 void printInstruction(instruction code, FILE *f);
-void printFileInstruction(instruction code, FILE* output);
+void printFileInstruction(instruction code, int i, FILE *output);
 void formatMString(instruction *instr, char *buffer);
 void formatLString(instruction *instr, char *buffer);
 void printCode(instructMem memory);
