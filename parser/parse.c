@@ -56,16 +56,8 @@ void parseTokenChain(Token *tail) {
 }
 
 void parseProgram() {
-    emit(LIT, 0, 0); //functional value
-    curStackPointer++;
-    emit(LIT, 0 ,0); //static link
-    curStackPointer++;
-    emit(LIT, 0, 0); //dynamic link
-    curStackPointer++;
-    emit(LIT, 0, 0); //return address
-    curStackPointer++;
-    emit(LIT, 0, 0); //parameters
-    curStackPointer++;
+
+    curStackPointer += 4; // accounts for space taken up by AR.
 
     parseBlock();
 
@@ -111,13 +103,13 @@ void parseBlock() {
     }
 
     if (token->type == varsym) {
+        int numVars = 0;
         do {
             token = advance();
             if (token->type != identsym)
                 reportParserError(MISSING_IDENTIFIER);
 
-            emit(LIT, 0, 0);
-            curStackPointer++;
+            numVars++;
 
             symbol *tempSym = malloc( sizeof(symbol) * 1);
             tempSym->addr = curStackPointer;
@@ -131,6 +123,8 @@ void parseBlock() {
             reportParserError(MISSING_VAR_SEMICOLON);
 
         token = advance();
+
+        emit(INC, 0, numVars + 4);
     }
 
     // This may not be necessary; project description ambiguous -Will
@@ -353,7 +347,6 @@ void parseFactor() {
     Token *token = NULL;
     token = advance();
     int numberValue = 0;
-    int offset = 0;
 
     if (token->type == identsym){
         symbol *tempSym = get(token->token);
