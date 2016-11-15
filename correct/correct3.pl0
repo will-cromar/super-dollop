@@ -1,4 +1,4 @@
-var n, i, fib, fibPrev, temp;
+var n, i, fib, fibPrev, temp, a;
 begin
     read a;
     if a <= 1 then begin
