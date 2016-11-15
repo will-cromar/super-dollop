@@ -36,7 +36,7 @@ const char *ENDSYM = "end";
 const char *IFSYM = "if";
 const char *THENSYM = "then";
 const char *WHILESYM = "while";
-const char *DOSYM = "DO";
+const char *DOSYM = "do";
 const char *CALLSYM = "call";
 const char *CONSTSYM = "const";
 const char *VARSYM = "var";
@@ -46,8 +46,7 @@ const char *READSYM = "read";
 const char *ELSESYM = "else";
 
 int match(const char* x, char* y){
-    size_t yLen = strlen(y);
-    if(strncmp(x,y,yLen) == 0){
+    if(strcmp(x,y) == 0){
         return 1;
     }
     return 0;
