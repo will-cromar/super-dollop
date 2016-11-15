@@ -225,7 +225,6 @@ void parseStatement() {
             else {
                 emit(LOD, 0, tempSym->addr);
             }
-            return; // This is a valid terminal sym
         }
         else{
             reportParserError(MISSING_IDENTIFIER); //Maybe make a more specific error message
@@ -242,7 +241,6 @@ void parseStatement() {
             else {
                 emit(LOD, 0, tempSym->addr);
             }
-            return; // This is a valid terminal sym
         }
         else{
             reportParserError(MISSING_IDENTIFIER); //Maybe make a more specific error message
