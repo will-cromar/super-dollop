@@ -1,7 +1,8 @@
 struct _MainArguments {
     char *inputPath;
     char *outputPath;
-
+    // This is a secret (ssh)
+    char *vmOutputPath;
 };
 typedef struct _MainArguments MainArguments;
 

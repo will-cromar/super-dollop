@@ -33,14 +33,14 @@ const char *getOpName(instruction instr){
     return opNames[opcode][m];
 }
 
-void printInstruction(instruction code) {
+void printInstruction(instruction code, FILE *f) {
     char l_str[5];
     formatLString(&code, l_str);
 
     char m_str[5];
     formatMString(&code, m_str);
 
-    printf("%3d  %s %s %s  ", code.inputNumber, getOpName(code), l_str, m_str);
+    fprintf(f, "%3d  %s %s %s  ", code.inputNumber, getOpName(code), l_str, m_str);
 }
 
 void printFileInstruction(instruction code, FILE* output) {
@@ -77,14 +77,14 @@ void printCode(instructMem memory){
     }
 }
 
-void printStack(vmInstance *vm){
+void printStack(vmInstance *vm, FILE *f) {
     activationLL *current = vm->arList;
     for(int a = 1; a <= vm->sp; a++){
-        printf("%d ", vm->stack[a]);
+        fprintf(f, "%d ", vm->stack[a]);
 
         if(current != NULL){
             if(a == current->endOfRecord && a != vm->sp){
-                printf("| ");
+                fprintf(f, "| ");
                 current = current->next;
             }
         }
@@ -92,9 +92,9 @@ void printStack(vmInstance *vm){
 
 }
 
-void printVMState(vmInstance *vm){
-    printInstruction(vm->ir);
-    printf("%4d %4d %4d   ", vm->pc, vm->bp, vm->sp);
-    printStack(vm);
-    printf("\n");
+void printVMState(vmInstance *vm, FILE *f) {
+    printInstruction(vm->ir, f);
+    fprintf(f, "%4d %4d %4d   ", vm->pc, vm->bp, vm->sp);
+    printStack(vm, f);
+    fprintf(f, "\n");
 }

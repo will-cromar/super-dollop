@@ -44,7 +44,10 @@ int main(int argc, char **argv) {
 
     parseTokenChain(tail);
 
-    run();
+    if (arguments->vmOutputPath != NULL) {
+        FILE *vmFile = fopen(arguments->vmOutputPath, "w");
+        run(vmFile);
+    }
 
     Token *temp = NULL;
     // Free the token chain
@@ -60,15 +63,20 @@ int main(int argc, char **argv) {
 }
 
 
-MainArguments* parseArguments(int argc, char **argv){
+MainArguments* parseArguments(int argc, char **argv) {
     // Pull out the command line arguments
-    MainArguments* arguments = calloc(1, sizeof(MainArguments));
-    if(argc != 3) {
+    MainArguments *arguments = calloc(1, sizeof(MainArguments));
+    if (argc < 3) {
         printf("Error: Input Mismatch\n");
         exit(-1);
     }
     arguments->inputPath = argv[1];
     arguments->outputPath = argv[2];
+
+    if (argc > 3) {
+        arguments->vmOutputPath = argv[3];
+    }
+
     return arguments;
 }
 
