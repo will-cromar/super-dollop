@@ -234,7 +234,6 @@ void parseStatement() {
         else{
             reportParserError(MISSING_IDENTIFIER); //Maybe make a more specific error message
         }
-        printf("triggered\n");
         emit(SIO, 0, 0);
     }
     else {
