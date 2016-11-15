@@ -213,16 +213,16 @@ void parseStatement() {
         code[curInstrIndex2].m = cx;
     }
     else if (token->type == readsym){
+        emit(SIO, 0, 1);
         int offset = 0;
         token = advance();
         if (token->type == identsym){
             offset = get(token->token)->addr;
-            emit(LOD, 0, offset);
+            emit(STO, 0, offset);
         }
         else{
             reportParserError(MISSING_IDENTIFIER); //Maybe make a more specific error message
         }
-        emit(SIO, 0, 1);
     }
     else if (token->type == writesym){
         int offset = 0;
