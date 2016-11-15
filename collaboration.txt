@@ -4,5 +4,5 @@
 // Jonathan Guilbe
 
 William Cromar: Parsing, error messages
-Luke Myers: ...
+Luke Myers: Code emission, interface with Virtual Machine
 Jonathan Guilbe: Symbol table, test cases
