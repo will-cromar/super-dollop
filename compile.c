@@ -75,9 +75,9 @@ MainArguments* parseArguments(int argc, char **argv) {
     arguments->inputPath = argv[1];
     arguments->outputPath = argv[2];
 
-    if (argc > 3) {
+    /*if (argc > 3) {
         arguments->vmOutputPath = argv[3];
-    }
+    }*/
 
     return arguments;
 }
