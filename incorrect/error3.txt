@@ -1,0 +1,1 @@
+Parser error: (Error #5) Identifiers in 'var' declaration must be followed by a ',' or ';'

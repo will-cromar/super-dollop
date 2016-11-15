@@ -1,0 +1,1 @@
+Lexer error: (Error #26) Identifier starts with a number

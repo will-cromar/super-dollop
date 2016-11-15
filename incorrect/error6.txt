@@ -1,0 +1,1 @@
+Parser error: (Error #10) Statement in 'begin' block must be followed by ';' or 'end'

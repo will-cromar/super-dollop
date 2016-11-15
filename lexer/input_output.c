@@ -67,11 +67,11 @@ void reportLexerError(TokenType type) {
     printf("Lexer error: ");
     switch (type) {
         case numIdent:
-            puts("Identifier starts with a number");
+            puts("(Error #26) Identifier starts with a number");
             break;
 
         case numTooLarge:
-            puts("Number too large");
+            puts("(Error #25) Number too large");
             break;
 
         case identTooLong:

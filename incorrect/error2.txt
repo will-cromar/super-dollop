@@ -1,0 +1,1 @@
+Parser error: (Error #3) 'const', 'var', 'procedure', 'read', and 'write' must be followed by an identifier
