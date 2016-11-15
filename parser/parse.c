@@ -145,8 +145,7 @@ void parseBlock() {
         if (token->type != semicolonsym)
             reportParserError(MISSING_PROC_END_SEMICOLON);
 
-        token = advance();
-    }
+        token = advance();}
 
     if (token->type == periodsym)
         reportParserError(MISSING_STATEMENT);
