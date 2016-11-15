@@ -1,0 +1,19 @@
+var n, i, fib, fibPrev, temp;
+begin
+    read a;
+    if a <= 1 then begin
+        fib := a;
+    end;
+    if a > 1 then begin
+        fib := 1;
+        fibPrev := 1;
+        i := 2;
+        while i < n do begin
+            temp := fib;
+            fib := fib + fibPrev;
+            fibPrev := temp;
+            i := i + 1;
+        end;
+    end;
+    write fib;
+end.
