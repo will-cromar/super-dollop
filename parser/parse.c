@@ -102,8 +102,8 @@ void parseBlock() {
         token = advance();
     }
 
+    int numVars = 0;
     if (token->type == varsym) {
-        int numVars = 0;
         do {
             token = advance();
             if (token->type != identsym)
@@ -125,8 +125,8 @@ void parseBlock() {
 
         token = advance();
 
-        emit(INC, 0, numVars + 4);
     }
+    emit(INC, 0, numVars + 4);
 
     // This may not be necessary; project description ambiguous -Will
     // EBNF grammar on lecture 8 slides does not include procedure -Luke
