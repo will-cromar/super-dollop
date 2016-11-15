@@ -13,7 +13,7 @@
 
 int execute(vmInstance *vm);
 
-int run() {
+int run(FILE *f) {
     instructMem code = getCode();
     printCode(code);
 
@@ -34,15 +34,15 @@ int run() {
     vm->stack[3] = 0;
 
     // Print execution header
-    puts("\nExecution:");
-    puts("                      pc   bp   sp   stack");
-    printf("                       0   %2d    0   \n", vm->bp);
+    fputs("Execution:\n", f);
+    fputs("                      pc   bp   sp   stack\n", f);
+    fprintf(f, "                       0   %2d    0   \n", vm->bp);
 
     int halt = 0;
     while (1) {
         vm->ir = code.mem[vm->pc];
         halt = execute(vm);
-        printVMState(vm);
+        printVMState(vm, f);
         vm->pc++;
         if(halt){
             break;

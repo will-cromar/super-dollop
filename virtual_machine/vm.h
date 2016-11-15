@@ -44,6 +44,6 @@ typedef struct _instructMem instructMem;
 
 instructMem parseInput(FILE *fp);
 
-int run();
+int run(FILE *f);
 
 #endif

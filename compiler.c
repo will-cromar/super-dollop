@@ -9,6 +9,8 @@
 #include "parser/parse.h"
 #include "compiler.h"
 
+FILE *output;
+
 int main(int argc, char **argv) {
 
     // Parse command line arguments
@@ -22,7 +24,7 @@ int main(int argc, char **argv) {
 
     // Open the file
     FILE *input = fopen(arguments->inputPath, "r");
-    FILE *output = fopen(arguments->outputPath, "w");
+    output = fopen(arguments->outputPath, "w+");
 
     // Check for errors in opening the file
     if(isBadFilePointerError(input) || isBadFilePointerError(output)){
@@ -42,7 +44,10 @@ int main(int argc, char **argv) {
 
     parseTokenChain(tail);
 
-    run();
+    if (arguments->vmOutputPath != NULL) {
+        FILE *vmFile = fopen(arguments->vmOutputPath, "w");
+        run(vmFile);
+    }
 
     Token *temp = NULL;
     // Free the token chain
@@ -58,14 +63,23 @@ int main(int argc, char **argv) {
 }
 
 
-MainArguments* parseArguments(int argc, char **argv){
+MainArguments* parseArguments(int argc, char **argv) {
     // Pull out the command line arguments
-    MainArguments* arguments = calloc(1, sizeof(MainArguments));
-    if(argc != 3) {
+    MainArguments *arguments = calloc(1, sizeof(MainArguments));
+    if (argc < 3) {
         printf("Error: Input Mismatch\n");
         exit(-1);
     }
     arguments->inputPath = argv[1];
     arguments->outputPath = argv[2];
+
+    if (argc > 3) {
+        arguments->vmOutputPath = argv[3];
+    }
+
     return arguments;
+}
+
+FILE* getOutputFile(){
+    return output;
 }
