@@ -95,11 +95,9 @@ void parseBlock() {
                 reportParserError(MISSING_CONST_NUMBER);
 
             numericalValue = atoi(token->token);
-            emit(LIT, 0, numericalValue);
-            curStackPointer++;
-
             symbol *tempSym = malloc( sizeof(symbol) * 1);
-            tempSym->addr = curStackPointer;
+            tempSym->kind = 1;
+            tempSym->val = numericalValue;
             strcpy(tempSym->name, varName);
             insert(varName, tempSym);
 
@@ -358,8 +356,13 @@ void parseFactor() {
     int offset = 0;
 
     if (token->type == identsym){
-        offset = get(token->token)->addr;
-        emit(LOD, 0, offset);
+        symbol *tempSym = get(token->token);
+        if(tempSym->kind ==  1){
+            emit(LIT, 0, tempSym->val);
+        }
+        else {
+            emit(LOD, 0, tempSym->addr);
+        }
         return; // This is a valid terminal sym
     }
     else if(token->type == numbersym){
