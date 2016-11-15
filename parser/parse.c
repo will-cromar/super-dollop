@@ -126,7 +126,7 @@ void parseBlock() {
         token = advance();
 
     }
-    emit(INC, 0, numVars + 4);
+    emit(INC, 0 , numVars + 4);
 
     // This may not be necessary; project description ambiguous -Will
     // EBNF grammar on lecture 8 slides does not include procedure -Luke
@@ -145,7 +145,8 @@ void parseBlock() {
         if (token->type != semicolonsym)
             reportParserError(MISSING_PROC_END_SEMICOLON);
 
-        token = advance();}
+        token = advance();
+    }
 
     if (token->type == periodsym)
         reportParserError(MISSING_STATEMENT);
