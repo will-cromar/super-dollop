@@ -43,6 +43,7 @@ int main(int argc, char **argv) {
     Token *tail = tokenize(cleanSourceCode);
 
     parseTokenChain(tail);
+    puts("No errors, program is syntactically correct");
 
     FILE *vmFile = NULL;
     if (arguments->vmOutputPath != NULL) {

@@ -9,7 +9,7 @@
 #include "../virtual_machine/vm.h"
 
 #define CODE_SIZE 502
-#define DEBUG_VERBOSE_ADVANCE 1
+#define DEBUG_VERBOSE_ADVANCE 0
 
 Token *iterator(Token *feed);
 void startIter(Token *feed);

@@ -50,7 +50,7 @@ void printFileInstruction(instruction code, int i, FILE *output) {
     char m_str[5];
     formatMString(&code, m_str);
 
-    fprintf(output,"%d %d %d  ",code.op, code.l, code.m);
+    fprintf(output,"%d %d %d",code.op, code.l, code.m);
 }
 
 void formatMString(instruction *instr, char *buffer) {

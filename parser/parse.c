@@ -223,7 +223,7 @@ void parseStatement() {
                 emit(LIT, 0, tempSym->val);
             }
             else {
-                emit(LOD, 0, tempSym->addr);
+                emit(STO, 0, tempSym->addr);
             }
         }
         else{
