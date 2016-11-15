@@ -115,6 +115,7 @@ void parseBlock() {
             tempSym->addr = curStackPointer;
             strcpy(tempSym->name, token->token);
             insert(token->token, tempSym);
+            curStackPointer++;
 
             token = advance();
         } while (token->type == commasym);
