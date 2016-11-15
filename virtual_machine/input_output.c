@@ -5,7 +5,7 @@
 
 #include "vm.h"
 #include "input_output.h"
-#include "../compiler.h"
+#include "../compile.h"
 
 const char *opNames[10][14] = {{"NIL"},
                                {"LIT"},

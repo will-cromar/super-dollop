@@ -7,7 +7,7 @@
 #include "lexer/lexer.h"
 #include "lexer/input_output.h"
 #include "parser/parse.h"
-#include "compiler.h"
+#include "compile.h"
 
 FILE *output;
 
