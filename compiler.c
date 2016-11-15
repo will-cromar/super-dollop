@@ -9,6 +9,8 @@
 #include "parser/parse.h"
 #include "compiler.h"
 
+FILE *output;
+
 int main(int argc, char **argv) {
 
     // Parse command line arguments
@@ -22,7 +24,7 @@ int main(int argc, char **argv) {
 
     // Open the file
     FILE *input = fopen(arguments->inputPath, "r");
-    FILE *output = fopen(arguments->outputPath, "w");
+    output = fopen(arguments->outputPath, "w+");
 
     // Check for errors in opening the file
     if(isBadFilePointerError(input) || isBadFilePointerError(output)){
@@ -68,4 +70,8 @@ MainArguments* parseArguments(int argc, char **argv){
     arguments->inputPath = argv[1];
     arguments->outputPath = argv[2];
     return arguments;
+}
+
+FILE* getOutputFile(){
+    return output;
 }

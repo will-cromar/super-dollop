@@ -5,6 +5,7 @@
 
 #include "vm.h"
 #include "input_output.h"
+#include "../compiler.h"
 
 const char *opNames[10][14] = {{"NIL"},
                                {"LIT"},
@@ -42,6 +43,16 @@ void printInstruction(instruction code) {
     printf("%3d  %s %s %s  ", code.inputNumber, getOpName(code), l_str, m_str);
 }
 
+void printFileInstruction(instruction code, FILE* output) {
+    char l_str[5];
+    formatLString(&code, l_str);
+
+    char m_str[5];
+    formatMString(&code, m_str);
+
+    fprintf(output,"%d %d %d  ",code.op, code.l, code.m);
+}
+
 void formatMString(instruction *instr, char *buffer) {
     sprintf(buffer, "%4d", instr->m);
 
@@ -59,11 +70,10 @@ void formatLString(instruction *instr, char *buffer) {
 }
 
 void printCode(instructMem memory){
-    printf("PL/0 code:\n\n");
-
+    FILE* output = getOutputFile();
     for(int a = 1; a <= memory.length; a++){
-        printInstruction(memory.mem[a]);
-        printf("\n");
+        printFileInstruction(memory.mem[a], output);
+        fprintf(output, "\n");
     }
 }
 
