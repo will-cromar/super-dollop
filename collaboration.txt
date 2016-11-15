@@ -1,0 +1,8 @@
+// Team name: Compiler Builder 7
+// William Cromar
+// Luke Myers
+// Jonathan Guilbe
+
+William Cromar: Parsing, error messages
+Luke Myers: ...
+Jonathan Guilbe: ...
