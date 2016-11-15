@@ -218,8 +218,14 @@ void parseStatement() {
         int offset = 0;
         token = advance();
         if (token->type == identsym){
-            offset = get(token->token)->addr;
-            emit(STO, 0, offset);
+            symbol *tempSym = get(token->token);
+            if(tempSym->kind ==  1){
+                emit(LIT, 0, tempSym->val);
+            }
+            else {
+                emit(LOD, 0, tempSym->addr);
+            }
+            return; // This is a valid terminal sym
         }
         else{
             reportParserError(MISSING_IDENTIFIER); //Maybe make a more specific error message
@@ -229,8 +235,14 @@ void parseStatement() {
         int offset = 0;
         token = advance();
         if (token->type == identsym){
-            offset = get(token->token)->addr;
-            emit(LOD, 0, offset);
+            symbol *tempSym = get(token->token);
+            if(tempSym->kind ==  1){
+                emit(LIT, 0, tempSym->val);
+            }
+            else {
+                emit(LOD, 0, tempSym->addr);
+            }
+            return; // This is a valid terminal sym
         }
         else{
             reportParserError(MISSING_IDENTIFIER); //Maybe make a more specific error message
