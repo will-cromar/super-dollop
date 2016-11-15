@@ -44,10 +44,11 @@ int main(int argc, char **argv) {
 
     parseTokenChain(tail);
 
+    FILE *vmFile = NULL;
     if (arguments->vmOutputPath != NULL) {
-        FILE *vmFile = fopen(arguments->vmOutputPath, "w");
-        run(vmFile);
+        vmFile = fopen(arguments->vmOutputPath, "w");
     }
+    run(vmFile);
 
     Token *temp = NULL;
     // Free the token chain

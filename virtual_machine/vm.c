@@ -13,10 +13,9 @@
 
 int execute(vmInstance *vm);
 
-int run(FILE *f) {
+int run(FILE *tracefile) {
     instructMem code = getCode();
     printCode(code);
-
 
     // Initialize the VM
     vmInstance *vm = malloc(sizeof(vmInstance));
@@ -33,21 +32,23 @@ int run(FILE *f) {
     vm->stack[2] = 0;
     vm->stack[3] = 0;
 
-    // Print execution header
-    fputs("Execution:\n", f);
-    fputs("                      pc   bp   sp   stack\n", f);
-    fprintf(f, "                       0   %2d    0   \n", vm->bp);
+    if (tracefile != NULL) {
+        // Print execution header
+        fputs("Execution:\n", tracefile);
+        fputs("                      pc   bp   sp   stack\n", tracefile);
+        fprintf(tracefile, "                       0   %2d    0   \n", vm->bp);
 
-    int halt = 0;
-    while (1) {
-        vm->ir = code.mem[vm->pc];
-        halt = execute(vm);
-        printVMState(vm, f);
-        vm->pc++;
-        if(halt){
-            break;
+        int halt = 0;
+        while (1) {
+            vm->ir = code.mem[vm->pc];
+            halt = execute(vm);
+            printVMState(vm, tracefile);
+            vm->pc++;
+            if (halt) {
+                break;
+            }
+
         }
-
     }
 
     return 0;
