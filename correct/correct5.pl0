@@ -1,0 +1,10 @@
+var a, b;
+begin
+    read a;
+    read b;
+    while a < b do
+    begin
+        write a;
+        a := a + 1;
+    end;
+end.
