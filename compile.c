@@ -1,6 +1,8 @@
-//
-// Created by will on 10/21/16.
-//
+// Team name: Compiler Builder 7
+// William Cromar
+// Luke Myers
+// Jonathan Guilbe
+
 #include <stdlib.h>
 #include <string.h>
 

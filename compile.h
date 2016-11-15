@@ -1,3 +1,8 @@
+// Team name: Compiler Builder 7
+// William Cromar
+// Luke Myers
+// Jonathan Guilbe
+
 struct _MainArguments {
     char *inputPath;
     char *outputPath;

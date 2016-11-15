@@ -1,6 +1,7 @@
-//
-// Created by Jonathan on 10/24/2016.
-//
+// Team name: Compiler Builder 7
+// William Cromar
+// Luke Myers
+// Jonathan Guilbe
 
 #ifndef SUPER_DOLLOP_SYMBOLS_H
 #define SUPER_DOLLOP_SYMBOLS_H

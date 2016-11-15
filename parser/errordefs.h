@@ -1,6 +1,7 @@
-//
-// Created by will on 10/21/16.
-//
+// Team name: Compiler Builder 7
+// William Cromar
+// Luke Myers
+// Jonathan Guilbe
 
 #ifndef SUPER_DOLLOP_ERRORDEFS_H
 #define SUPER_DOLLOP_ERRORDEFS_H

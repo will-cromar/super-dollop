@@ -1,6 +1,8 @@
-//
-// Created by Jonathan on 10/24/2016.
-//
+// Team name: Compiler Builder 7
+// William Cromar
+// Luke Myers
+// Jonathan Guilbe
+
 #include <string.h>
 #include "symbols.h"
 #include <stdio.h>
