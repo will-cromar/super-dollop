@@ -1,0 +1,20 @@
+correct/correct1.pm0
+PM/0 code:
+
+  0  INC         5  
+  1  IN       
+  2  STO    0    4  
+  3  LOD    0    4  
+  4  OUT      
+  5  HLT            
+
+Execution:
+                      pc   bp   sp   stack
+                       0    1    0   
+  0  INC         5     1    1    5   0 0 0 0 0 
+  1  IN       Input:    2            2    1    6   0 0 0 0 0 2 
+  2  STO    0    4     3    1    5   0 0 0 0 2 
+  3  LOD    0    4     4    1    6   0 0 0 0 2 2 
+  4  OUT      
+Output:   2            5    1    5   0 0 0 0 2 
+  5  HLT               6    1    5   0 0 0 0 2 
