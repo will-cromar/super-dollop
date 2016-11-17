@@ -13,7 +13,7 @@
 #define NUMBER_BASE 10
 #define MAX_PL0_NUM 65535
 
-const char *NULLSYM = "null";
+const char *NULLSYM = "";
 const char *PLUSSYM = "+";
 const char *MINUSYM = "-";
 const char *MULTSYM = "*";
