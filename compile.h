@@ -13,3 +13,6 @@ typedef struct _MainArguments MainArguments;
 
 MainArguments* parseArguments(int argc, char **argv);
 FILE* getOutputFile();
+
+void printFileInstruction(instruction code, FILE *output);
+void printCode(instructMem memory);

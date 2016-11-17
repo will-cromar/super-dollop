@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include "parse.h"
 #include "errordefs.h"
-#include "../virtual_machine/opcodes.h"
-#include "../parser/symbols.h"
+#include "../opcodes.h"
+#include "symbols.h"
 #include <string.h>
 
 instruction code[CODE_SIZE];

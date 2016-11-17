@@ -47,11 +47,8 @@ int main(int argc, char **argv) {
     parseTokenChain(tail);
     puts("No errors, program is syntactically correct");
 
-    FILE *vmFile = NULL;
-    if (arguments->vmOutputPath != NULL) {
-        vmFile = fopen(arguments->vmOutputPath, "w");
-    }
-    run(vmFile);
+    instructMem code = getCode();
+    printCode(code);
 
     Token *temp = NULL;
     // Free the token chain
@@ -86,4 +83,16 @@ MainArguments* parseArguments(int argc, char **argv) {
 
 FILE* getOutputFile(){
     return output;
+}
+
+void printFileInstruction(instruction code, FILE *output) {
+    fprintf(output,"%d %d %d",code.op, code.l, code.m);
+}
+
+void printCode(instructMem memory) {
+    FILE* output = getOutputFile();
+    for(int a = 0; a <= memory.length; a++) {
+        printFileInstruction(memory.mem[a], output);
+        fprintf(output, "\n");
+    }
 }
