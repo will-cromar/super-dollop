@@ -196,13 +196,19 @@ void parseStatement() {
         emit(JPC, 0, 0);
         parseStatement();
 
+        code[curInstructionIndex].m = cx;
+
         token = advance();
         if(token->type == elsesym) {
+            int endElse = cx;
+            emit(JMP, 0, 0);
+            code[curInstructionIndex].m = cx;
             parseStatement();
+            code[endElse].m = cx;
         } else {
             startIter(token);
         }
-        code[curInstructionIndex].m = cx;
+
     }
     else if (token->type == whilesym) {
        int curInstrIndex1 = cx;
