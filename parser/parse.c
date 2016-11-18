@@ -132,9 +132,14 @@ void parseBlock() {
     // This may not be necessary; project description ambiguous -Will
     // EBNF grammar on lecture 8 slides does not include procedure -Luke
     while (token->type == procsym) {
+        Symbol *tempSym = malloc(sizeof(Symbol) * 1);
         token = advance();
         if (token->type != identsym)
             reportParserError(MISSING_IDENTIFIER);
+        tempSym->symbolType = procedure;
+        strcpy(tempSym->name, token->token);
+        tempSym->instructionIndex = cx;
+        insert(tempSym->name, tempSym);
 
         token = advance();
         if (token->type != semicolonsym)
@@ -145,6 +150,7 @@ void parseBlock() {
         token = advance();
         if (token->type != semicolonsym)
             reportParserError(MISSING_PROC_END_SEMICOLON);
+        emit(RET, 0, 0);
 
         token = advance();
     }
