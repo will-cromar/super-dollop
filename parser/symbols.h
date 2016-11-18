@@ -20,6 +20,7 @@ typedef struct symbol {
     int value;
     int level;
     int offset;
+    int instructionIndex;
 } Symbol;
 
 int hash(char* name);
