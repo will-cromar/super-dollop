@@ -235,8 +235,11 @@ void parseStatement() {
             if(tempSym->symbolType ==  constant){
                 emit(LIT, 0, tempSym->value);
             }
-            else {
+            else if(tempSym->symbolType == variable) {
                 emit(STO, 0, tempSym->offset);
+            }
+            else {
+                reportParserError("Procedures cannot be read.");
             }
         }
         else{
@@ -250,8 +253,11 @@ void parseStatement() {
             if(tempSym->symbolType ==  constant){
                 emit(LIT, 0, tempSym->value);
             }
-            else {
+            else if (tempSym->symbolType == variable){
                 emit(LOD, 0, tempSym->offset);
+            }
+            else {
+                reportParserError("Procedures cannot be written.");
             }
         }
         else{
