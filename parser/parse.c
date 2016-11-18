@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include "parse.h"
 #include "errordefs.h"
-#include "../virtual_machine/opcodes.h"
-#include "../parser/symbols.h"
+#include "../opcodes.h"
+#include "symbols.h"
 #include <string.h>
 
 instruction code[CODE_SIZE];
@@ -197,13 +197,19 @@ void parseStatement() {
         emit(JPC, 0, 0);
         parseStatement();
 
+        code[curInstructionIndex].m = cx;
+
         token = advance();
         if(token->type == elsesym) {
+            int endElse = cx;
+            emit(JMP, 0, 0);
+            code[curInstructionIndex].m = cx;
             parseStatement();
+            code[endElse].m = cx;
         } else {
             startIter(token);
         }
-        code[curInstructionIndex].m = cx;
+
     }
     else if (token->type == whilesym) {
        int curInstrIndex1 = cx;

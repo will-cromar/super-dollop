@@ -1,7 +1,7 @@
 CC = gcc
 
 TARGET = compile
-CFILES = compile.c ./lexer/input_output.c ./lexer/lexer.c ./lexer/symbol_detection.c ./parser/parse.c ./parser/symbols.c ./virtual_machine/input_output.c ./virtual_machine/instructions.c ./virtual_machine/util.c ./virtual_machine/vm.c
+CFILES = compile.c ./lexer/input_output.c ./lexer/lexer.c ./lexer/symbol_detection.c ./parser/parse.c ./parser/symbols.c
 
 all: $(TARGET)
 
