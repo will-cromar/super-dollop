@@ -128,6 +128,8 @@ void parseBlock() {
 
     }
     emit(INC, 0 , numVars + 4);
+    int firstJmp = cx;
+    emit(JMP, 0, 0);
 
     // This may not be necessary; project description ambiguous -Will
     // EBNF grammar on lecture 8 slides does not include procedure -Luke
@@ -158,6 +160,8 @@ void parseBlock() {
 
     if (token->type == periodsym)
         reportParserError(MISSING_STATEMENT);
+
+    code[firstJmp].m = cx; //update first jump to jump to location of main body code.
 
     // Pull iterator back a step for the statement parser
     startIter(token);
