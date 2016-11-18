@@ -137,6 +137,7 @@ void parseBlock() {
         if (token->type != identsym)
             reportParserError(MISSING_IDENTIFIER);
         tempSym->symbolType = procedure;
+        tempSym->level = 0;
         strcpy(tempSym->name, token->token);
         tempSym->instructionIndex = cx;
         insert(tempSym->name, tempSym);
