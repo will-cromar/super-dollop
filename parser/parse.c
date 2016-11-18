@@ -180,7 +180,7 @@ void parseStatement() {
     }
     else if (token->type == callsym) {
         token = advance();
-        if (token->type == identsym)
+        if (token->type != identsym)
             reportParserError(MISSING_CALL_IDENT);
     }
     else if (token->type == beginsym) {
