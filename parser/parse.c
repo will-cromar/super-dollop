@@ -182,6 +182,14 @@ void parseStatement() {
         token = advance();
         if (token->type != identsym)
             reportParserError(MISSING_CALL_IDENT);
+
+        Symbol* symbol = get(token->token);
+        if(symbol->symbolType == procedure){
+            emit(CAL, symbol->level, symbol->instructionIndex);
+        }
+        else {
+            reportParserError("Constants and variables cannot be called.\n");
+        }
     }
     else if (token->type == beginsym) {
         do {
