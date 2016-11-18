@@ -151,7 +151,7 @@ void parseBlock() {
         token = advance();
         if (token->type != semicolonsym)
             reportParserError(MISSING_PROC_END_SEMICOLON);
-        emit(RET, 0, 0);
+        emit(OPR, 0, RET);
 
         token = advance();
     }
