@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-symbol* symbol_table[MAX_SYMBOL_TABLE_SIZE] = {NULL};
+Symbol* symbol_table[MAX_SYMBOL_TABLE_SIZE] = {NULL};
 
-symbol* get(char name[]){
+Symbol* get(char name[]){
     int hashIndex = hash(name);
     int origin = hashIndex;
     while(symbol_table[hashIndex] != NULL){
@@ -26,7 +26,7 @@ symbol* get(char name[]){
     }
 }
 
-void insert(char name[], symbol* newSymbol){
+void insert(char name[], Symbol* newSymbol){
     int hashIndex = hash(name);
     int origin = hashIndex;
 

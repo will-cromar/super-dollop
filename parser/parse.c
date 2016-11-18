@@ -87,9 +87,9 @@ void parseBlock() {
                 reportParserError(MISSING_CONST_NUMBER);
 
             numericalValue = atoi(token->token);
-            symbol *tempSym = malloc( sizeof(symbol) * 1);
-            tempSym->kind = 1;
-            tempSym->val = numericalValue;
+            Symbol *tempSym = malloc( sizeof(Symbol) * 1);
+            tempSym->symbolType = constant;
+            tempSym->value = numericalValue;
             strcpy(tempSym->name, varName);
             insert(varName, tempSym);
 
@@ -111,8 +111,9 @@ void parseBlock() {
 
             numVars++;
 
-            symbol *tempSym = malloc( sizeof(symbol) * 1);
-            tempSym->addr = curStackPointer;
+            Symbol *tempSym = malloc( sizeof(Symbol) * 1);
+            tempSym->symbolType = variable;
+            tempSym->offset = curStackPointer;
             strcpy(tempSym->name, token->token);
             insert(token->token, tempSym);
             curStackPointer++;
@@ -159,7 +160,7 @@ void parseBlock() {
 void parseStatement() {
     Token *token = NULL;
     Token *tempTok = NULL;
-    symbol *sym = NULL;
+    Symbol *sym = NULL;
     token = advance();
 
     if (token->type == identsym) {
@@ -169,7 +170,7 @@ void parseStatement() {
             reportParserError(MISSING_IDENT_BECOMES);
         parseExpression();
         sym = get(tempTok->token);
-        emit(STO, 0, sym->addr);
+        emit(STO, 0, sym->offset);
     }
     else if (token->type == callsym) {
         token = advance();
@@ -222,15 +223,14 @@ void parseStatement() {
     }
     else if (token->type == readsym){
         emit(SIO, 0, 1);
-        int offset = 0;
         token = advance();
         if (token->type == identsym){
-            symbol *tempSym = get(token->token);
-            if(tempSym->kind ==  1){
-                emit(LIT, 0, tempSym->val);
+            Symbol *tempSym = get(token->token);
+            if(tempSym->symbolType ==  constant){
+                emit(LIT, 0, tempSym->value);
             }
             else {
-                emit(STO, 0, tempSym->addr);
+                emit(STO, 0, tempSym->offset);
             }
         }
         else{
@@ -238,15 +238,14 @@ void parseStatement() {
         }
     }
     else if (token->type == writesym){
-        int offset = 0;
         token = advance();
         if (token->type == identsym){
-            symbol *tempSym = get(token->token);
-            if(tempSym->kind ==  1){
-                emit(LIT, 0, tempSym->val);
+            Symbol *tempSym = get(token->token);
+            if(tempSym->symbolType ==  constant){
+                emit(LIT, 0, tempSym->value);
             }
             else {
-                emit(LOD, 0, tempSym->addr);
+                emit(LOD, 0, tempSym->offset);
             }
         }
         else{
@@ -366,12 +365,12 @@ void parseFactor() {
     int numberValue = 0;
 
     if (token->type == identsym){
-        symbol *tempSym = get(token->token);
-        if(tempSym->kind ==  1){
-            emit(LIT, 0, tempSym->val);
+        Symbol *tempSym = get(token->token);
+        if(tempSym->symbolType ==  constant){
+            emit(LIT, 0, tempSym->value);
         }
         else {
-            emit(LOD, 0, tempSym->addr);
+            emit(LOD, 0, tempSym->offset);
         }
         return; // This is a valid terminal sym
     }
