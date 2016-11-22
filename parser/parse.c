@@ -14,7 +14,7 @@
 instruction code[CODE_SIZE];
 int cx;
 int curStackPointer = 0;
-
+int lexLevel = 0;
 
 Token *iterator(Token *feed) {
     static Token *cur = NULL;
@@ -90,7 +90,9 @@ void parseBlock() {
             Symbol *tempSym = malloc( sizeof(Symbol) * 1);
             tempSym->symbolType = constant;
             tempSym->value = numericalValue;
+            tempSym->level = lexLevel;
             strcpy(tempSym->name, varName);
+
             insert(varName, tempSym);
 
             token = advance();
@@ -113,6 +115,7 @@ void parseBlock() {
 
             Symbol *tempSym = malloc( sizeof(Symbol) * 1);
             tempSym->symbolType = variable;
+            tempSym->level = lexLevel;
             tempSym->offset = curStackPointer;
             strcpy(tempSym->name, token->token);
             insert(token->token, tempSym);
@@ -139,10 +142,12 @@ void parseBlock() {
         if (token->type != identsym)
             reportParserError(MISSING_IDENTIFIER);
         tempSym->symbolType = procedure;
-        tempSym->level = 0;
+        tempSym->level = lexLevel;
         strcpy(tempSym->name, token->token);
         tempSym->instructionIndex = cx;
         insert(tempSym->name, tempSym);
+
+        lexLevel++;
 
         token = advance();
         if (token->type != semicolonsym)
@@ -162,6 +167,8 @@ void parseBlock() {
         reportParserError(MISSING_STATEMENT);
 
     code[firstJmp].m = cx; //update first jump to jump to location of main body code.
+    clearLevel(lexLevel);
+    lexLevel--;
 
     // Pull iterator back a step for the statement parser
     startIter(token);
@@ -181,7 +188,7 @@ void parseStatement() {
             reportParserError(MISSING_IDENT_BECOMES);
         parseExpression();
         sym = get(tempTok->token);
-        emit(STO, 0, sym->offset);
+        emit(STO, (lexLevel - sym->level), sym->offset);
     }
     else if (token->type == callsym) {
         token = advance();
@@ -190,7 +197,7 @@ void parseStatement() {
 
         Symbol* symbol = get(token->token);
         if(symbol->symbolType == procedure){
-            emit(CAL, symbol->level, symbol->instructionIndex);
+            emit(CAL, (lexLevel - symbol->level), symbol->instructionIndex);
         }
         else {
             reportParserError("Constants and variables cannot be called.\n");
@@ -251,11 +258,8 @@ void parseStatement() {
         token = advance();
         if (token->type == identsym){
             Symbol *tempSym = get(token->token);
-            if(tempSym->symbolType ==  constant){
-                emit(LIT, 0, tempSym->value);
-            }
-            else if(tempSym->symbolType == variable) {
-                emit(STO, 0, tempSym->offset);
+            if(tempSym->symbolType == variable) {
+                emit(STO, (lexLevel - tempSym->level), tempSym->offset);
             }
             else {
                 reportParserError("Procedures cannot be read.");
@@ -270,10 +274,10 @@ void parseStatement() {
         if (token->type == identsym){
             Symbol *tempSym = get(token->token);
             if(tempSym->symbolType ==  constant){
-                emit(LIT, 0, tempSym->value);
+                emit(LIT, (lexLevel - tempSym->level), tempSym->value);
             }
             else if (tempSym->symbolType == variable){
-                emit(LOD, 0, tempSym->offset);
+                emit(LOD, (lexLevel - tempSym->level), tempSym->offset);
             }
             else {
                 reportParserError("Procedures cannot be written.");
@@ -398,10 +402,10 @@ void parseFactor() {
     if (token->type == identsym){
         Symbol *tempSym = get(token->token);
         if(tempSym->symbolType ==  constant){
-            emit(LIT, 0, tempSym->value);
+            emit(LIT, (lexLevel - tempSym->level), tempSym->value);
         }
         else {
-            emit(LOD, 0, tempSym->offset);
+            emit(LOD, (lexLevel - tempSym->level), tempSym->offset);
         }
         return; // This is a valid terminal sym
     }
