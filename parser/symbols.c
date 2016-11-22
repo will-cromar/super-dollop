@@ -13,17 +13,25 @@ Symbol* symbol_table[MAX_SYMBOL_TABLE_SIZE] = {NULL};
 Symbol* get(char name[]){
     int hashIndex = hash(name);
     int origin = hashIndex;
+    Symbol* currentSymbol = NULL;
+    int currentLevel = -1;
+    int flag = 0;
     while(symbol_table[hashIndex] != NULL){
-        if(strcmp(symbol_table[hashIndex]->name,name) == 0){
-            return symbol_table[hashIndex];
+        if(strcmp(symbol_table[hashIndex]->name,name) == 0 && currentLevel <= symbol_table[hashIndex]->level){
+            currentSymbol = symbol_table[hashIndex];
+            currentLevel = currentSymbol->level;
+            flag = 1;
         }
         hashIndex++;
         hashIndex %= MAX_SYMBOL_TABLE_SIZE;
+        if(flag)
+            return currentSymbol;
         if(hashIndex == origin){
             printf("Parsing Error: Symbol does not exist.");
             exit(-1);
         }
     }
+    return currentSymbol;
 }
 
 void insert(char name[], Symbol* newSymbol){
@@ -33,7 +41,6 @@ void insert(char name[], Symbol* newSymbol){
     while(symbol_table[hashIndex] != NULL){
         hashIndex++;
         hashIndex %= MAX_SYMBOL_TABLE_SIZE;
-        //Table is full, how do we handle this?
         if(hashIndex == origin) {
             printf("Parsing Error: Symbol table is full.\n");
             exit(-1);
@@ -42,7 +49,14 @@ void insert(char name[], Symbol* newSymbol){
     symbol_table[hashIndex] = newSymbol;
 }
 
-//Not sure how effective a hash function like this is with a small symbol table.
+
+void clearLevel(int level){
+    for (int i = 0; i < 100; ++i) {
+        if(symbol_table[i]->level == level)
+            free(symbol_table[i]);
+    }
+}
+
 int hash(char *name){
     int hash = 7;
     int i;

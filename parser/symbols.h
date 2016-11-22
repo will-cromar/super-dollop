@@ -23,11 +23,12 @@ typedef struct symbol {
     int instructionIndex;
 } Symbol;
 
+
 int hash(char* name);
 Symbol* get(char name[]);
 void insert(char name[], Symbol* newSymbol);
 int hash(char *name);
-int contains(char name[]);
+void clearLevel(int level);
 
 
 #endif //SUPER_DOLLOP_SYMBOLS_H
