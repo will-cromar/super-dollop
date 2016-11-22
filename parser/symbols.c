@@ -13,7 +13,7 @@ Symbol* symbol_table[MAX_SYMBOL_TABLE_SIZE] = {NULL};
 Symbol* get(char name[]){
     int hashIndex = hash(name);
     int origin = hashIndex;
-    Symbol* currentSymbol = NULL;
+    Symbol* currentSymbol = symbol_table[hashIndex];
     int currentLevel = -1;
     int flag = 0;
     while(symbol_table[hashIndex] != NULL){
@@ -27,7 +27,6 @@ Symbol* get(char name[]){
         if(flag)
             return currentSymbol;
         if(hashIndex == origin){
-            printf("Parsing Error: Symbol does not exist.");
             exit(-1);
         }
     }
@@ -37,12 +36,10 @@ Symbol* get(char name[]){
 void insert(char name[], Symbol* newSymbol){
     int hashIndex = hash(name);
     int origin = hashIndex;
-
     while(symbol_table[hashIndex] != NULL){
         hashIndex++;
         hashIndex %= MAX_SYMBOL_TABLE_SIZE;
         if(hashIndex == origin) {
-            printf("Parsing Error: Symbol table is full.\n");
             exit(-1);
         }
     }
@@ -50,8 +47,10 @@ void insert(char name[], Symbol* newSymbol){
 }
 void clearLevel(int level){
     for (int i = 0; i < 100; ++i) {
-        if(symbol_table[i] != NULL && symbol_table[i]->level == level)
+        if(symbol_table[i] != NULL && symbol_table[i]->level == level){
             free(symbol_table[i]);
+            symbol_table[i] = NULL;
+        }
     }
 }
 
