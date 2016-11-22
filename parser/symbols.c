@@ -4,52 +4,76 @@
 // Jonathan Guilbe
 
 #include <string.h>
-#include "symbols.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-Symbol* symbol_table[MAX_SYMBOL_TABLE_SIZE] = {NULL};
+#include "symbols.h"
+
+Entry* symbol_table[MAX_SYMBOL_TABLE_SIZE] = {NULL};
 
 Symbol* get(char name[]){
     int hashIndex = hash(name);
     int origin = hashIndex;
-    Symbol* currentSymbol = symbol_table[hashIndex];
-    int currentLevel = -1;
-    int flag = 0;
-    while(symbol_table[hashIndex] != NULL){
-        if(strcmp(symbol_table[hashIndex]->name,name) == 0 && currentLevel <= symbol_table[hashIndex]->level){
-            currentSymbol = symbol_table[hashIndex];
-            currentLevel = currentSymbol->level;
-            flag = 1;
+
+    int targetIndex = -1;
+    do {
+        if (strcmp(symbol_table[hashIndex]->name, name) == 0) {
+            targetIndex = hashIndex;
         }
+
         hashIndex++;
         hashIndex %= MAX_SYMBOL_TABLE_SIZE;
-        if(flag)
-            return currentSymbol;
-        if(hashIndex == origin){
-            exit(-1);
-        }
+    } while (hashIndex != origin && targetIndex == -1);
+
+    if (targetIndex != -1 && symbol_table[targetIndex] != NULL) {
+        return symbol_table[targetIndex]->sym;
+    } else {
+        puts("Symbol not found :`-(((((((");
+        exit(-4);
     }
-    return currentSymbol;
 }
 
 void insert(char name[], Symbol* newSymbol){
     int hashIndex = hash(name);
+    int targetIndex = -1;
+    int firstNull = -1;
     int origin = hashIndex;
-    while(symbol_table[hashIndex] != NULL){
+    do {
+        if (symbol_table[hashIndex] == NULL) {
+            firstNull = firstNull == -1 ? hashIndex : firstNull;
+        }
+        else if (strcmp(symbol_table[hashIndex]->name, name) == 0) {
+            targetIndex = hashIndex;
+        }
+
         hashIndex++;
         hashIndex %= MAX_SYMBOL_TABLE_SIZE;
-        if(hashIndex == origin) {
-            exit(-1);
-        }
+    } while (hashIndex != origin && targetIndex == -1);
+
+    int fillIdx = targetIndex != -1 ? targetIndex : firstNull;
+
+    if (fillIdx != -1) {
+        // Push
+        Entry *newEntry = calloc(1, sizeof(Entry));
+        strcpy(newEntry->name, newSymbol->name);
+        newEntry->sym = newSymbol;
+        newEntry->next = symbol_table[fillIdx];
+        symbol_table[fillIdx] = newEntry;
+    } else {
+        puts("Symbol table too full!");
+        exit(-3);
     }
-    symbol_table[hashIndex] = newSymbol;
 }
+
 void clearLevel(int level){
-    for (int i = 0; i < 100; ++i) {
-        if(symbol_table[i] != NULL && symbol_table[i]->level == level){
-            free(symbol_table[i]);
-            symbol_table[i] = NULL;
+    for (int i = 0; i < MAX_SYMBOL_TABLE_SIZE; ++i) {
+        if(symbol_table[i] != NULL && symbol_table[i]->sym != NULL && symbol_table[i]->sym->level == level){
+            free(symbol_table[i]->sym);
+
+            // Pop
+            Entry *temp = symbol_table[i];
+            symbol_table[i] = symbol_table[i]->next;
+            free(temp);
         }
     }
 }
@@ -57,7 +81,7 @@ void clearLevel(int level){
 int hash(char *name){
     int hash = 7;
     int i;
-    int length = strlen(name);
+    size_t length = strlen(name);
     for (i = 0; i < length; ++i) {
         hash = hash * 31 + name[i];
     }

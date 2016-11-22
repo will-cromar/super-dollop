@@ -1,0 +1,13 @@
+var x;
+procedure a;
+    var x;
+    begin
+        x:=2;
+        write x;
+    end;
+begin
+    x := 8;
+    write x; /* This should write 8 */
+    call a;
+    write x;
+end.

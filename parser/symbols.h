@@ -16,15 +16,20 @@ typedef enum _SymbolType {
 
 typedef struct symbol {
     SymbolType symbolType;
-    char name[12];
+    char name[20];
     int value;
     int level;
     int offset;
     int instructionIndex;
 } Symbol;
 
+struct _Entry {
+    char name[20];
+    Symbol *sym;
+    struct _Entry *next;
+};
+typedef struct _Entry Entry;
 
-int hash(char* name);
 Symbol* get(char name[]);
 void insert(char name[], Symbol* newSymbol);
 int hash(char *name);
