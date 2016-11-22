@@ -48,11 +48,9 @@ void insert(char name[], Symbol* newSymbol){
     }
     symbol_table[hashIndex] = newSymbol;
 }
-
-
 void clearLevel(int level){
     for (int i = 0; i < 100; ++i) {
-        if(symbol_table[i]->level == level)
+        if(symbol_table[i] != NULL && symbol_table[i]->level == level)
             free(symbol_table[i]);
     }
 }
