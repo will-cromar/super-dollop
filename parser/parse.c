@@ -57,8 +57,6 @@ void parseTokenChain(Token *tail) {
 
 void parseProgram() {
 
-    curStackPointer += 4; // accounts for space taken up by AR.
-
     parseBlock();
 
     Token *token = advance();
@@ -70,6 +68,7 @@ void parseBlock() {
     Token *token = NULL;
     char *varName = NULL;
     int numericalValue = 0;
+    curStackPointer = 4; // accounts for space taken up by AR.
 
     token = advance();
     if (token->type == constsym) {
