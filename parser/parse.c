@@ -161,14 +161,14 @@ void parseBlock() {
         emit(OPR, 0, RET);
 
         token = advance();
+        clearLevel(lexLevel);
+        lexLevel--;
     }
 
     if (token->type == periodsym)
         reportParserError(MISSING_STATEMENT);
 
     code[firstJmp].m = cx; //update first jump to jump to location of main body code.
-    clearLevel(lexLevel);
-    lexLevel--;
 
     // Pull iterator back a step for the statement parser
     startIter(token);
