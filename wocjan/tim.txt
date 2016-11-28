@@ -1,0 +1,18 @@
+var y;
+
+procedure A;
+  begin
+    y := 22;
+    call B;
+  end;
+
+procedure B;
+  begin
+    write y;
+  end;
+
+begin
+  call A;
+  y := 11;
+  call B;
+end.
