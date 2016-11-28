@@ -129,7 +129,6 @@ void parseBlock() {
         token = advance();
 
     }
-    emit(INC, 0 , numVars + 4);
     int firstJmp = cx;
     emit(JMP, 0, 0);
 
@@ -168,6 +167,9 @@ void parseBlock() {
         reportParserError(MISSING_STATEMENT);
 
     code[firstJmp].m = cx; //update first jump to jump to location of main body code.
+
+    //Allocate stack space before starting procedure
+    emit(INC, 0 , numVars + 4);
 
     // Pull iterator back a step for the statement parser
     startIter(token);
