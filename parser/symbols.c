@@ -17,7 +17,7 @@ Symbol* get(char name[]){
 
     int targetIndex = -1;
     do {
-        if (strcmp(symbol_table[hashIndex]->name, name) == 0) {
+        if (symbol_table[hashIndex] != NULL && strcmp(symbol_table[hashIndex]->name, name) == 0) {
             targetIndex = hashIndex;
         }
 
@@ -28,7 +28,7 @@ Symbol* get(char name[]){
     if (targetIndex != -1 && symbol_table[targetIndex] != NULL) {
         return symbol_table[targetIndex]->sym;
     } else {
-        puts("Symbol not found :`-(((((((");
+        printf("Symbol not found: %s :'(\n", name);
         exit(-4);
     }
 }
