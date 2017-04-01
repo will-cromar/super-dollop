@@ -1,2 +1,2 @@
 # super-dollop
-Part 3 of project for COP 3402
+Compiler for PL/0 programming language. Written for COP 3402 in Fall 2016.
